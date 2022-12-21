@@ -1,0 +1,74 @@
+<html>
+    <body>
+        <canvas id='lesson01' width='500' height='400'/>
+    
+        <script>
+            const canvas = document.getElementById("lesson01");
+            const context = canvas.getContext("2d");
+            context.canvas.width = window.innerWidth-10;
+            context.canvas.height = window.innerHeight-20;
+    
+            const psize = 1;
+            const shape_size = 50;
+    
+            let shape_posX = 100
+            let shape_posY = 10
+    
+            context.fillStyle = "#FF0000";
+            context.fillRect(10*psize, 10*psize, 1*psize, 1*psize);
+    
+            function draw() {
+            context.fillStyle = "#FF0000";
+                for (let j=0; j<shape_size; j++) {
+                    for (let i=0; i<shape_size; i++) {
+                        context.fillRect((shape_posX+j)*psize, (shape_posY+i)*psize, 
+                            1*psize, 1*psize);
+                    }
+                }
+        
+                
+            }
+            
+            function erase_draw() {
+                context.fillStyle = "#800080";	
+                for (var j=0; j<shape_size; j++) {
+                    for (var i=0; i<shape_size; i++) {
+                        context.fillRect((shape_posX+j)*psize, (shape_posY+i)*psize, 
+                            1*psize, 1*psize);
+                    }
+                }
+        
+            }
+            let hor = 1;
+            let ver = 1;
+            setInterval(function () {
+                erase_draw();
+                
+                
+                shape_posX+=hor;
+                shape_posY+=ver;
+
+                
+                if ((shape_posX + shape_size == context.canvas.width) || (shape_posX == 0)) {
+                    hor = hor*(-1);
+                }
+                if ((shape_posY + shape_size == context.canvas.height) || (shape_posY == 0)) {
+                    ver = ver*(-1);
+                }
+
+
+                
+                draw();
+            }, 1);
+            
+            
+            canvas.addEventListener("mousedown", getClickPosition, false);
+    
+            function getClickPosition(e) {
+                shape_posX = e.clientX - shape_size/2;
+                shape_posY = e.clientY - shape_size/2;
+            }
+        
+        </script>
+    </body>
+</html>
